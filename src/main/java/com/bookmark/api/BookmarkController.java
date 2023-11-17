@@ -1,6 +1,7 @@
 package com.bookmark.api;
 
 import com.bookmark.models.Bookmark;
+import com.bookmark.models.BookmarkDTO;
 import com.bookmark.models.BookmarkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class BookmarkController {
     private final BookmarkService bookmarkService; // Dependency Injection
 
     @GetMapping
-    public List<Bookmark> getBookmarks(@RequestParam(name="page", defaultValue = "1") Integer page){
+    public BookmarkDTO getBookmarks(@RequestParam(name="page", defaultValue = "1") Integer page){
         return bookmarkService.getBookmarks(page);
     }
 

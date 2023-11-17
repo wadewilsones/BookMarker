@@ -16,10 +16,10 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional(readOnly = true)
-    public List<Bookmark> getBookmarks(Integer page){
+    public BookmarkDTO getBookmarks(Integer page){
         int pageNo = page < 1 ? 0 : page-1;
         Pageable pagable = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "createdAt");
-        return bookmarkRepository.findAll(pagable).getContent();
+        return new BookmarkDTO(bookmarkRepository.findAll(pagable));
     }
 
 
