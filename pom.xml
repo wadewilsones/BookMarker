@@ -110,7 +110,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-
+						<image>
+							<name>bookmark-api</name>
+						</image>
 					<excludes>
 						<exclude>
 							<groupId>org.project-lombok</groupId>
