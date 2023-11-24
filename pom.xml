@@ -111,7 +111,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 						<image>
-							<name>bookmark-api</name>
+							<name>uladaharanina/bookmark-api</name>
 						</image>
 					<excludes>
 						<exclude>
