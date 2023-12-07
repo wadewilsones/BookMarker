@@ -16,8 +16,18 @@ public class BookmarkController {
     private final BookmarkService bookmarkService; // Dependency Injection
 
     @GetMapping
-    public BookmarksDTO getBookmarks(@RequestParam(name="page", defaultValue = "1") Integer page){
-        return bookmarkService.getBookmarks(page);
+    public BookmarksDTO getBookmarks(@RequestParam(name="page", defaultValue = "1") Integer page,
+                                     @RequestParam(name="query", defaultValue = "") String query){
+
+        if(query == null || query.trim().isEmpty()){
+            return bookmarkService.getBookmarks(page);
+        }
+        else{
+            return bookmarkService.searchBookmark(query, page);
+        }
+
+
     }
+
 
 }
