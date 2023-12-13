@@ -10,11 +10,16 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.Instant;
 import java.util.ArrayList;
 
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+
  class BookmarkControllerTest {
 
     @Autowired
@@ -68,5 +74,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$.totalPages", CoreMatchers.equalTo(pageNo)))
                 .andExpect(jsonPath("$.hasNext", CoreMatchers.equalTo(hasNext)));
         ;
+    }
+
+    /**
+     * Test for creation of the bookmark
+     */
+
+    @Test
+    void shouldCreateBookmark() throws Exception{
+
+        this.mvc.perform(
+                MockMvcRequestBuilders.post("/api/bookmarks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        {
+                                "title":"Testing",
+                                "url": "https://www.youtube.com"}                              
+                        """)
+        )
+        .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", notNullValue()));
     }
 }
