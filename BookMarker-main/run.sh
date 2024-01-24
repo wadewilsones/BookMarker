@@ -33,4 +33,6 @@ action="start"
 if [ "$1" == "start" ]; then
  start
 elif [ "$1" == "commit" ]; then
-  updateRemote
+ updateRemote
+
+fi

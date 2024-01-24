@@ -3,6 +3,7 @@ package com.bookmark.api;
 import com.bookmark.models.BookmarkDTO;
 import com.bookmark.models.BookmarksDTO;
 import com.bookmark.models.BookmarkService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.bookmark.models.createdBookmark;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/bookmarks")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookmarkController {
 
     private final BookmarkService bookmarkService; // Dependency Injection
@@ -35,6 +37,7 @@ public class BookmarkController {
     public BookmarkDTO createBookmark(@RequestBody @Valid createdBookmark bookmark){
         return bookmarkService.createBookmark(bookmark);
     }
+
 
 
 }
